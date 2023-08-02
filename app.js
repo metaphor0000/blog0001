@@ -9,6 +9,7 @@ const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pelle
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 const motivation1 = "Life is too short to wait"
 const app = express();
+var posts = [];
 
 app.set('view engine', 'ejs');
 
@@ -17,6 +18,7 @@ app.use(express.static("public"));
 
 app.get("/",function(req,res){
   res.render("home",{m1:motivation1});
+  console.log(posts);
 })
 
 app.get("/contact",function(req,res){
@@ -27,7 +29,20 @@ app.get("/about",function(req,res){
   res.render("about",{about:aboutContent});
 })
 
+app.get("/compose",function(req,res){
+  res.render("compose");
+})
 
+app.post("/compose",function(req,res){
+  const post = {
+    title:req.body.postTitle,
+    content:req.body.postBody
+  };
+
+  posts.push(post);
+
+  res.redirect("/")
+})
 
 
 
