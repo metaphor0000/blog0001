@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/",function(req,res){
-  res.render("home",{m1:motivation1});
-  console.log(posts);
+  res.render("home",{m1:motivation1,posts:posts});
+ 
 })
 
 app.get("/contact",function(req,res){
@@ -44,7 +44,15 @@ app.post("/compose",function(req,res){
   res.redirect("/")
 })
 
-
+app.get("/posts/:postName",function(req,res){
+  const requestedTitle = req.params.postName;
+  posts.forEach(function(post){
+    const storedTitle = post.title;
+    if (storedTitle === requestedTitle){
+      console.log("Matched");
+    }
+  });
+});
 
 
 
